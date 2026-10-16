@@ -4,6 +4,8 @@ import axios from "axios";
 import { API_END_POINT } from "../uitils/constant";
 import toast from "react-hot-toast"
 import {useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoading, setUser } from "../redux/userSlice";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -11,6 +13,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch=useDispatch();
   
   const loginHandler = () => {
     setIsLogin(!isLogin);
@@ -18,6 +21,7 @@ const Login = () => {
 
   const getInputData = async (e) => {
     e.preventDefault();
+    dispatch(setLoading(true));
     if (isLogin) {
       const user = { email, password };
       try {
@@ -28,11 +32,16 @@ const Login = () => {
           {
             toast.success(res.data.message);
           }
+            dispatch(setUser(res.data.user));
             navigate("/browse");
       }
       catch (err) {
         console.log(err);
         toast.error(err.response.data.message);
+      }
+      finally{
+
+        dispatch(setLoading(false));
       }
     }
     else {
@@ -71,7 +80,7 @@ const Login = () => {
           }
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
-          <button className="bg-red-600 mt-6 p-3 text-white rounded-sm font-medium">{isLogin ? "Login" : "Signup"}</button>
+          <button type="submit" className="bg-red-600 mt-6 p-3 text-white rounded-sm font-medium">{isLogin ? "Login" : "Signup"}</button>
           <p className="text-white mt-2">{isLogin ? "New To Netflix" : "Alreardy Have an Account?"}<span onClick={loginHandler} className="ml-1 text-blue-900 font-medium cursor-pointer" >{isLogin ? "Signup" : "Login"}</span></p>
         </div>
       </form>

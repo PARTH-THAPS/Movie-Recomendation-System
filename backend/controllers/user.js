@@ -42,7 +42,7 @@ export const login = async (req, res) => {
             })
             .json({
                 message: `Welcome back ${user.fullname}`,
-                success: true
+                success: true,user
             });
 
 
