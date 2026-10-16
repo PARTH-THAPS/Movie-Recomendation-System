@@ -1,24 +1,60 @@
 import React, { useState } from "react"
 import Header from "./Header";
-
+import axios from "axios";
+import { API_END_POINT } from "../uitils/constant";
+import toast from "react-hot-toast"
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
-const [isLogin, setIsLogin] = useState(false);
-const [fullname,setFullName]=useState("");
-const [email,setEmail]=useState("");
-const [password,setPassword]=useState("");
-
+  const [isLogin, setIsLogin] = useState(false);
+  const [fullname, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  
   const loginHandler = () => {
     setIsLogin(!isLogin);
   }
 
-  const getInputData=(e)=>
-    {
-      e.preventDefault();
-      setFullName("");
-      setEmail("");
-      setPassword("");
+  const getInputData = async (e) => {
+    e.preventDefault();
+    if (isLogin) {
+      const user = { email, password };
+      try {
+        const res = await axios.post(`${API_END_POINT}login`, user,{headers:{"Content-Type":"application/json"},withCredentials:true});
+        console.log(res);
+
+        if(res.data.success)
+          {
+            toast.success(res.data.message);
+          }
+            navigate("/browse");
+      }
+      catch (err) {
+        console.log(err);
+        toast.error(err.response.data.message);
+      }
     }
+    else {
+      const user = { fullname, email, password};
+      try {
+        const res = await axios.post(`${API_END_POINT}register`, user,{headers:{"Content-Type":"application/json"},withCredentials:true});
+        console.log(res);
+        if(res.data.success)
+          {
+            toast.success(res.data.message);
+          }
+          setIsLogin(true);
+      }
+      catch (err) {
+        toast.error(err.response.data.message);
+        console.log(err);
+      }
+    }
+    setFullName("");
+    setEmail("");
+    setPassword("");
+  }
 
   return (
     <div >
@@ -30,12 +66,12 @@ const [password,setPassword]=useState("");
         <h1 className="text-3xl text-white mb-5 font-bold">{isLogin ? "Login" : "Signup"}</h1>
         <div className="flex flex-col">
           {
-            !isLogin && <input value={fullname} onChange={(e)=>setFullName(e.target.value)} type="text" placeholder="Full Name" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
+            !isLogin && <input value={fullname} onChange={(e) => setFullName(e.target.value)} type="text" placeholder="Full Name" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
 
           }
-          <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
-          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Password" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
-          <button className="bg-red-600 mt-6 p-3 text-white rounded-sm font-medium">{isLogin?"Login":"Signup"}</button>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
+          <button className="bg-red-600 mt-6 p-3 text-white rounded-sm font-medium">{isLogin ? "Login" : "Signup"}</button>
           <p className="text-white mt-2">{isLogin ? "New To Netflix" : "Alreardy Have an Account?"}<span onClick={loginHandler} className="ml-1 text-blue-900 font-medium cursor-pointer" >{isLogin ? "Signup" : "Login"}</span></p>
         </div>
       </form>
