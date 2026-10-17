@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_END_POINT } from "../uitils/constant";
 import toast from "react-hot-toast"
 import {useNavigate} from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading, setUser } from "../redux/userSlice";
 
 const Login = () => {
@@ -14,6 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch=useDispatch();
+  const isLoading= useSelector(store=>store.app.isLoading)
   
   const loginHandler = () => {
     setIsLogin(!isLogin);
@@ -37,7 +38,7 @@ const Login = () => {
       }
       catch (err) {
         console.log(err);
-        toast.error(err.response.data.message);
+         toast.error(err?.response?.data?.message || err.message || "Something went wrong");
       }
       finally{
 
@@ -45,6 +46,8 @@ const Login = () => {
       }
     }
     else {
+
+      dispatch(setLoading(true));
       const user = { fullname, email, password};
       try {
         const res = await axios.post(`${API_END_POINT}register`, user,{headers:{"Content-Type":"application/json"},withCredentials:true});
@@ -56,8 +59,12 @@ const Login = () => {
           setIsLogin(true);
       }
       catch (err) {
-        toast.error(err.response.data.message);
+        toast.error(err?.response?.data?.message || err.message || "Something went wrong");
         console.log(err);
+      }
+      finally
+      {
+        dispatch(setLoading(false));
       }
     }
     setFullName("");
@@ -76,11 +83,10 @@ const Login = () => {
         <div className="flex flex-col">
           {
             !isLogin && <input value={fullname} onChange={(e) => setFullName(e.target.value)} type="text" placeholder="Full Name" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
-
           }
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" className="outline-none p-3 my-2 rounded-sm bg-gray-800 text-white" />
-          <button type="submit" className="bg-red-600 mt-6 p-3 text-white rounded-sm font-medium">{isLogin ? "Login" : "Signup"}</button>
+          <button type="submit" className="bg-red-600 mt-6 p-3 text-white rounded-sm font-medium">{isLoading ? "loading..." : (isLogin ? "Login" : "Signup")}</button>
           <p className="text-white mt-2">{isLogin ? "New To Netflix" : "Alreardy Have an Account?"}<span onClick={loginHandler} className="ml-1 text-blue-900 font-medium cursor-pointer" >{isLogin ? "Signup" : "Login"}</span></p>
         </div>
       </form>
