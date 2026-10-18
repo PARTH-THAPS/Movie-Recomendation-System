@@ -181,6 +181,9 @@
   .absolute {
     position: absolute;
   }
+  .relative {
+    position: relative;
+  }
   .right-0 {
     right: 0px;
   }
@@ -201,6 +204,9 @@
   }
   .my-36 {
     margin-block: calc(var(--spacing) * 36);
+  }
+  .-mt-52 {
+    margin-top: calc(var(--spacing) * -52);
   }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
@@ -241,6 +247,9 @@
   .w-3\/12 {
     width: calc(3 / 12 * 100%);
   }
+  .w-48 {
+    width: calc(var(--spacing) * 48);
+  }
   .w-56 {
     width: calc(var(--spacing) * 56);
   }
@@ -270,6 +279,9 @@
   }
   .justify-center {
     justify-content: center;
+  }
+  .overflow-x-auto {
+    overflow-x: auto;
   }
   .rounded-md {
     border-radius: var(--radius-md);
@@ -319,11 +331,23 @@
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
   }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
+  }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
+  }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
   .pt-\[18\%\] {
     padding-top: 18%;
+  }
+  .pr-2 {
+    padding-right: calc(var(--spacing) * 2);
   }
   .text-3xl {
     font-size: var(--text-3xl);
@@ -378,6 +402,15 @@ body {
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 @property --tw-border-style {
   syntax: "*";

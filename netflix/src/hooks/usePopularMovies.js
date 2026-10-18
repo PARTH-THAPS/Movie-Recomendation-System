@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { options, Popular_Movie } from "../uitils/constant";
 import { useDispatch } from "react-redux";
+import { getPopularMovie } from "../redux/movieSlice";
 
 const usePopularMovies= async()=>
     {

@@ -33,6 +33,13 @@ const Header = () => {
 
     }
 
+    const toggleHandler=()=>{
+
+
+        
+    }
+
+
     return (
         <div className="absolute z-10 flex w-[100vw] items-center justify-between px-6 bg-gradient-to-b from-black">
             <img className='w-56' src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png" alt="netflix-logo" />
@@ -44,7 +51,7 @@ const Header = () => {
                         Logout
                     </button>
 
-                    <button className="bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded-md ml-2">
+                    <button  onClick={toggleHandler} className="bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded-md ml-2" >
                         Search Movie
                     </button>    
             </div>

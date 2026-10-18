@@ -9,6 +9,8 @@ import { Now_Playing_Movies, options } from '../uitils/constant';
 import { getNowPlayingMovies } from '../redux/movieSlice';
 import useNowPlayingMovies from '../hooks/useNowPlayingMovies';
 import usePopularMovies from '../hooks/usePopularMovies';
+import useTopRatedMovies from '../hooks/useTopRatedMovies';
+import useUpcomingMovie from '../hooks/useUpcomingMovie';
 
 
 const Browse = () => {
@@ -18,12 +20,14 @@ const Browse = () => {
 
     useNowPlayingMovies();
     usePopularMovies();
+    useTopRatedMovies();
+    useUpcomingMovie();
+
 
     useEffect(() => {
         if (!user) {
             navigate("/")
         }
-        nowPlayingMovies();
 
     }, [])
 
