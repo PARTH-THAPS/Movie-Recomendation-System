@@ -24,3 +24,21 @@ yarn-error.log*
 .env
 .node-modules
 
+
+# Python test/type-check caches
+.pytest_cache/
+.mypy_cache/
+
+# Generated ML artifacts (ignore only if reproducible)
+*.joblib
+*.pkl
+*.pickle
+
+# Dataset files (if large or not meant for Git)
+ data/
+*.csv
+
+# Python virtual environments
+.venv/
+venv/
+env/
