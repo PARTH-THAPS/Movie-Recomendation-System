@@ -6,18 +6,28 @@ A full-stack Netflix-style web app with movie browsing, search, user authenticat
 - **Backend:** Node.js + Express + MongoDB (authentication and user data)
 - **ML service:** Python + FastAPI (TF-IDF content-based recommender, TMDB proxy)
 
+**Repositories**
+
+- Netflix Clone (frontend + backend): https://github.com/PARTH-THAPS/Netflix-Clone
+- Movie Recommendation System (ML service): https://github.com/PARTH-THAPS/Movie-Recomendation-System
+
 ## Screenshots
 
 | Login | Signup |
 |-------|--------|
-| ![Login]<img width="1865" height="907" alt="Screenshot 2026-10-24 215856" src="https://github.com/user-attachments/assets/dee80b01-0798-4559-a645-d3292df08c8e" />
-
- | ![Signup]<img width="1877" height="946" alt="Screenshot 2026-10-24 215846" src="https://github.com/user-attachments/assets/0443cccc-6e00-45f4-a107-211e2a2ac525" />
- |
+| <img src="https://github.com/user-attachments/assets/dee80b01-0798-4559-a645-d3292df08c8e" alt="Login page" width="480"> | <img src="https://github.com/user-attachments/assets/0443cccc-6e00-45f4-a107-211e2a2ac525" alt="Signup page" width="480"> |
 
 | Movie details with recommendations | Recommendations loading state |
 |------------------------------------|-------------------------------|
-| ![Movie details](docs/screenshots/movie-details.png) | ![Loading](docs/screenshots/recommendations-loading.png) |
+| <img src="https://github.com/user-attachments/assets/db8478a6-8a5a-4384-9ab2-c62974868be1" alt="Movie details with similar movies" width="480"> | <img src="https://github.com/user-attachments/assets/4eb051f3-208c-4a31-afe0-2a76aac32b4f" alt="Skeleton loader while recommendations load" width="480"> |
+
+### Movie details page
+
+<img src="https://github.com/user-attachments/assets/b0a607ef-d0f0-42c8-8855-1aa6d9ac9920" alt="Movie details page" width="720">
+
+### More screenshots
+
+<img src="https://github.com/user-attachments/assets/5b5b403d-d5d2-42f8-9e62-36028644db79" alt="App screenshot" width="720">
 
 ## Architecture
 
@@ -72,7 +82,6 @@ Netflix/
 │   ├── tfidf.pkl           # Fitted TF-IDF vectorizer
 │   ├── requirements.txt
 │   └── .env                # TMDB_API_KEY (not committed)
-├── docs/screenshots/
 └── README.md
 ```
 
@@ -112,6 +121,12 @@ git clone https://github.com/PARTH-THAPS/Netflix-Clone.git
 cd Netflix-Clone
 ```
 
+If your ML service lives in its own repository, clone it too:
+
+```bash
+git clone https://github.com/PARTH-THAPS/Movie-Recomendation-System.git
+```
+
 ### 2. ML service
 
 Create `ml-service/.env`:
@@ -120,7 +135,7 @@ Create `ml-service/.env`:
 TMDB_API_KEY=your_tmdb_api_key
 ```
 
-Make sure the four pickle files (`df.pkl`, `indices.pkl`, `tfidf_matrix.pkl`, `tfidf.pkl`) are in the `ml-service/` folder next to `main.py`. The service loads them at startup and will fail to boot if any are missing.
+Make sure the four pickle files (`df.pkl`, `indices.pkl`, `tfidf_matrix.pkl`, `tfidf.pkl`) are in the same folder as `main.py`. The service loads them at startup and will fail to boot if any are missing.
 
 Then:
 
