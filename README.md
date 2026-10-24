@@ -8,8 +8,7 @@ A full-stack Netflix-style web app with movie browsing, search, user authenticat
 
 **Repositories**
 
-- Netflix Clone (frontend + backend): https://github.com/PARTH-THAPS/Netflix-Clone
-- Movie Recommendation System (ML service): https://github.com/PARTH-THAPS/Movie-Recomendation-System
+ https://github.com/PARTH-THAPS/Movie-Recomendation-System
 
 ## Screenshots
 
