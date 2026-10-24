@@ -39,7 +39,6 @@ Netflix/
 │   ├── utils/
 │   └── index.js
 ├── ml-service/         # FastAPI recommender
-│   ├── data/           # TMDB CSV files (not committed)
 │   ├── build_model.py  # Trains the model, creates .pkl files
 │   ├── main.py         # FastAPI app
 │   └── requirements.txt
